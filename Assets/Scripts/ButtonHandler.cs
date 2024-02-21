@@ -6,33 +6,28 @@ using UnityEngine.EventSystems;
 public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public TrainScript trainScript;
-
+    public float increaseTiming = 0.05f;
+    private bool isPowerRising = false;
+    
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         trainScript.StartEngine();
-        StartCoroutine(CheckEngine());
+        isPowerRising = true; 
     }
 
-
-    IEnumerator CheckEngine()
-    {
-        yield return new WaitForSeconds(0.1f);
-        trainScript.UpPower();
-    }
     public void OnPointerUp(PointerEventData eventData)
     {
-        StopCoroutine(CheckEngine());
+        isPowerRising = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+      if(isPowerRising) 
+        {
+            Debug.Log("POWERUP");
+            trainScript.UpPower();
+        }
         
     }
 }

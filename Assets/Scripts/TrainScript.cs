@@ -1,41 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrainScript : MonoBehaviour
 {
-    public List<WheelJoint2D> colliders;
-
+    private List<WheelJoint2D> colliders;
+    private bool isEngineStarted = false;
     public float RotationSpeed;
+    
     void Start()
     {
-        colliders= GetComponents<WheelJoint2D>().ToList();
+        colliders = GetComponents<WheelJoint2D>().ToList();
     }
+
 
     public void UpPower()
     {
+       
         foreach (WheelJoint2D wheel in colliders)
         {
             JointMotor2D motor = wheel.motor;
-            motor.motorSpeed += -1;
+            motor.motorSpeed += -5;
             wheel.motor = motor;
 
         }
     }
     public void StartEngine()
     {
-        foreach (WheelJoint2D wheel in colliders)
+        if(!isEngineStarted)
         {
-            JointMotor2D motor = wheel.motor;
-            motor.motorSpeed = -RotationSpeed;
-            wheel.motor = motor;
-        
+            isEngineStarted = true;
+            foreach (WheelJoint2D wheel in colliders)
+            {
+                JointMotor2D motor = wheel.motor;
+                motor.motorSpeed += -RotationSpeed;
+                wheel.motor = motor;
+
+            }
+            
         }
+       
     }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
