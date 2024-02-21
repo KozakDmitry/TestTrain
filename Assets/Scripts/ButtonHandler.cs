@@ -7,26 +7,31 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 {
     public TrainScript trainScript;
     public float increaseTiming = 0.05f;
-    private bool isPowerRising = false;
-    
-    
+    private bool isPowerRising = false, isPowerDecreasing = false;
+
+
     public void OnPointerDown(PointerEventData eventData)
     {
         trainScript.StartEngine();
-        isPowerRising = true; 
+        isPowerRising = true;
+        isPowerDecreasing = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isPowerRising = false;
+        isPowerDecreasing = true;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-      if(isPowerRising) 
+        if (isPowerRising)
         {
             trainScript.UpPower();
         }
-        
+        else if (isPowerDecreasing)
+        {
+            trainScript.DecreasePower();
+        }
     }
 }

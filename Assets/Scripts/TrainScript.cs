@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,25 @@ public class TrainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void DecreasePower()
+    {
+        foreach (WheelJoint2D wheel in colliders)
+        {
+            JointMotor2D motor = wheel.motor;
+            if(motor.motorSpeed < 0) 
+            {
+                motor.motorSpeed += 1f;
+            }
+            else
+            {
+                motor.motorSpeed = 0;
+            }
+            wheel.motor = motor;
+
+        }
         
     }
 }
