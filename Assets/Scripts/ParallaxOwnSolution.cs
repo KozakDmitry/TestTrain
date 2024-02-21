@@ -9,37 +9,33 @@ public class ParallaxOwnSolution : MonoBehaviour
     public GameObject[] backgrounds;
     public float parallaxEffect;
     private Camera cam;
-    private float startPos, length,offset;
-    private Transform startCamPosition;
-
+    private float startPos, length;
+    float distance;
     private int SpriteToMove = 0;
 
     void Start()
     {
         startPos = transform.position.x;
-        Camera cam = Camera.main;
-        startCamPosition = cam.transform;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
-        
+        cam = Camera.main;
+        length = backgrounds[0].GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     void Update()
     {
-        float distance = (cam.transform.position.x * parallaxEffect);
-
-        foreach (GameObject t in backgrounds)
-        {
-            t.transform.position = new Vector3(t.transform.position.x + distance, transform.position.y, transform.position.z);
-        }
-       
+        distance = (cam.transform.position.x * parallaxEffect);
+        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
+        Debug.Log(gameObject.name + "  " + backgrounds[(SpriteToMove + 2) % 3].transform.position.x);
         CheckIsChangeNeeded();
     }
 
     private void CheckIsChangeNeeded()
     {
-        if(cam.transform.position.x- startCamPosition.position.x> length * parallaxEffect)
+        if (cam.transform.position.x > backgrounds[(SpriteToMove + 1) % 3].transform.position.x+4)
         {
-
+            backgrounds[SpriteToMove].transform.position = new Vector3(backgrounds[(SpriteToMove + 2) % 3].transform.position.x + length,
+                                                                       backgrounds[SpriteToMove].transform.position.y,
+                                                                       backgrounds[SpriteToMove].transform.position.z);
+            SpriteToMove = ++SpriteToMove % 3;
         }
     }
 }
