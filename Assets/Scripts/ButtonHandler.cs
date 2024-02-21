@@ -25,7 +25,6 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
       if(isPowerRising) 
         {
-            Debug.Log("POWERUP");
             trainScript.UpPower();
         }
         

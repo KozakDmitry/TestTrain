@@ -24,7 +24,6 @@ public class ParallaxOwnSolution : MonoBehaviour
     {
         distance = (cam.transform.position.x * parallaxEffect);
         transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
-        Debug.Log(gameObject.name + "  " + backgrounds[(SpriteToMove + 2) % 3].transform.position.x);
         CheckIsChangeNeeded();
     }
 

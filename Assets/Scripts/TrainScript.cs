@@ -22,7 +22,7 @@ public class TrainScript : MonoBehaviour
         foreach (WheelJoint2D wheel in colliders)
         {
             JointMotor2D motor = wheel.motor;
-            motor.motorSpeed += -5;
+            motor.motorSpeed += -3;
             wheel.motor = motor;
 
         }
@@ -46,6 +46,6 @@ public class TrainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
